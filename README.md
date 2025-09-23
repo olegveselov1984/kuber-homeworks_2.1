@@ -53,9 +53,57 @@
 ### Что сдать на проверку
 - Манифесты:
   - `containers-data-exchange.yaml`
+ 
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: containers-data-exchange
+  labels:
+    app: exchange
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exchange
+  template:
+    metadata:
+      labels:
+        app: exchange
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.28
+        command: ['sh', '-c', 'while true; do echo Success! >> /tmp/exchange/data.txt; sleep 5; done']
+        volumeMounts:
+        - name: vol
+          mountPath: /tmp/exchange
+
+ 
+      - name: network-multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            value: "8080"
+        volumeMounts:
+        - name: vol
+          mountPath: /tmp/exchange
+
+      volumes:
+      - name: vol
+        hostPath:
+          path: /tmp/exchange
+```
+
+
 - Скриншоты:
   - описание пода с контейнерами (`kubectl describe pods data-exchange`)
+ <img width="1080" height="683" alt="image" src="https://github.com/user-attachments/assets/57956070-c429-41f3-9ee0-e6cdd8b79e8b" />
+
   - вывод команды чтения файла (`tail -f <имя общего файла>`)
+<img width="1141" height="168" alt="image" src="https://github.com/user-attachments/assets/407f9684-28bd-42cb-bafe-ca9219744479" />
+
+
 
 ------
 
