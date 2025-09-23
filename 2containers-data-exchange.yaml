@@ -20,7 +20,7 @@ spec:
         command: ['sh', '-c', 'while true; do echo Success! >> /tmp/exchange/data.txt; sleep 5; done']
         volumeMounts:
         - name: vol
-          mountPath: /tmp/exchange
+          mountPath: /tmp/exchange/pv
 
  
       - name: network-multitool
@@ -30,10 +30,11 @@ spec:
             value: "8080"
         volumeMounts:
         - name: vol
-          mountPath: /tmp/exchange
+          mountPath: /tmp/exchange/pv
 
       volumes:
       - name: vol
-        emptyDir: {}
         # hostPath:
         #   path: /tmp/exchange
+        persistentVolumeClaim:
+          claimName: pvc
