@@ -170,34 +170,10 @@ PV удален, но данные сохранены, поскольку уда
   - каждый шаг выполнения задания, начиная с шага 2
  
   
-<img width="854" height="231" alt="image" src="https://github.com/user-attachments/assets/94e222d7-c7c0-48fd-bc20-3dc241aff81e" />
-
-<img width="990" height="216" alt="image" src="https://github.com/user-attachments/assets/dce3ec1a-871a-49a5-a520-fe0884958964" />
+<img width="1188" height="508" alt="image" src="https://github.com/user-attachments/assets/82000087-de91-4e79-9e5b-0e28ffc2702a" />
 
 
-<img width="1069" height="335" alt="image" src="https://github.com/user-attachments/assets/4c997645-0769-473a-ab17-3ba6135f5a06" />
-
-```
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pvc
-NAME          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-example-pvc   Pending                                      sc             <unset>                 20s
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pvc
-NAME          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-example-pvc   Pending                                      sc             <unset>                 41s
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl apply -f 3containers-data-exchange.yaml 
-deployment.apps/containers-data-exchange created
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ 
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ 
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pod
-NAME                                       READY   STATUS              RESTARTS   AGE
-containers-data-exchange-66f5854b4-clx69   0/2     ContainerCreating   0          7s
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ 
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pod
-NAME                                       READY   STATUS    RESTARTS   AGE
-containers-data-exchange-66f5854b4-clx69   2/2     Running   0          56s
-
-```
-
+<img width="1139" height="644" alt="image" src="https://github.com/user-attachments/assets/ce588195-d660-416f-b4ca-c71596f104f4" />
 
 
 ---
