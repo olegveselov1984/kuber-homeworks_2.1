@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: containers-data-exchange
+  labels:
+    app: exchange
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exchange
+  template:
+    metadata:
+      labels:
+        app: exchange
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.28
+        command: ['sh', '-c', 'while true; do echo Success! >> /tmp/exchange/sc/data.txt; sleep 5; done']
+        volumeMounts:
+        - name: example-vol
+          mountPath: /tmp/exchange/sc
+      - name: network-multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            value: "8080"
+        volumeMounts:
+        - name: example-vol
+          mountPath: /tmp/exchange/sc
+      volumes:
+        - name: example-vol
+          persistentVolumeClaim:
+            claimName: example-pvc
