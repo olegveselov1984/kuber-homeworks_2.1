@@ -53,9 +53,60 @@
 ### Что сдать на проверку
 - Манифесты:
   - `containers-data-exchange.yaml`
+ 
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: containers-data-exchange
+  labels:
+    app: exchange
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exchange
+  template:
+    metadata:
+      labels:
+        app: exchange
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.28
+        command: ['sh', '-c', 'while true; do echo Success! >> /tmp/exchange/data.txt; sleep 5; done']
+        volumeMounts:
+        - name: vol
+          mountPath: /tmp/exchange
+
+ 
+      - name: network-multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            value: "8080"
+        volumeMounts:
+        - name: vol
+          mountPath: /tmp/exchange
+
+      volumes:
+      - name: vol
+        emptyDir: {}
+#        hostPath:
+#          path: /tmp/exchange
+```
+
+
 - Скриншоты:
   - описание пода с контейнерами (`kubectl describe pods data-exchange`)
+
+<img width="1153" height="641" alt="image" src="https://github.com/user-attachments/assets/2856ab0e-9e43-4488-8ff1-b1595b279994" />
+
+
   - вывод команды чтения файла (`tail -f <имя общего файла>`)
+
+<img width="1137" height="120" alt="image" src="https://github.com/user-attachments/assets/784c597a-4e76-4c61-8132-2a97aa0fd23b" />
+
 
 ------
 
@@ -66,10 +117,30 @@
 ### Шаги выполнения
 1. Создать Deployment приложения, состоящего из контейнеров busybox и multitool, использующего созданный ранее PVC
 2. Создать PV и PVC для подключения папки на локальной ноде, которая будет использована в поде.
-3. Продемонстрировать, что контейнер multitool может читать данные из файла в смонтированной директории, в который busybox записывает данные каждые 5 секунд. 
+
+<img width="912" height="138" alt="image" src="https://github.com/user-attachments/assets/83b6ad0b-2051-4ddf-8ee8-791320e81b35" />
+
+
+
+3. Продемонстрировать, что контейнер multitool может читать данные из файла в смонтированной директории, в который busybox записывает данные каждые 5 секунд.
+
+<img width="1159" height="274" alt="image" src="https://github.com/user-attachments/assets/7308c427-af9f-4dc2-bcd6-e01a3e5d672d" />
+
+
+
 4. Удалить Deployment и PVC. Продемонстрировать, что после этого произошло с PV. Пояснить, почему. (Используйте команду `kubectl describe pv`).
+
+<img width="1048" height="149" alt="image" src="https://github.com/user-attachments/assets/3c89e0f8-fe44-4438-845a-54987b65293a" />
+
+PV остаётся, статус меняется на Released (политика Retain)
+
 5. Продемонстрировать, что файл сохранился на локальном диске ноды. Удалить PV.  Продемонстрировать, что произошло с файлом после удаления PV. Пояснить, почему.
 
+<img width="754" height="92" alt="image" src="https://github.com/user-attachments/assets/9b6ab40c-41ec-483c-a501-ddba60e4557b" />
+
+<img width="715" height="74" alt="image" src="https://github.com/user-attachments/assets/b4f281ed-a38d-4dbe-81f3-2fa70eb417d2" />
+
+PV удален, но данные сохранены, поскольку удалили только объект PV
 
 ### Что сдать на проверку
 - Манифесты:
