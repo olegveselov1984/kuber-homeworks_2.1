@@ -162,11 +162,37 @@ PV удален, но данные сохранены, поскольку уда
 2. Создать SC и PVC для подключения папки на локальной ноде, которая будет использована в поде.
 3. Продемонстрировать, что контейнер multitool может читать данные из файла в смонтированной директории, в который busybox записывает данные каждые 5 секунд.
 
+
 ### Что сдать на проверку
 - Манифесты:
   - `sc.yaml`
 - Скриншоты:
   - каждый шаг выполнения задания, начиная с шага 2
+ 
+  
+<img width="854" height="231" alt="image" src="https://github.com/user-attachments/assets/94e222d7-c7c0-48fd-bc20-3dc241aff81e" />
+
+<img width="990" height="216" alt="image" src="https://github.com/user-attachments/assets/dce3ec1a-871a-49a5-a520-fe0884958964" />
+
+```
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl apply -f 3sc.yaml 
+storageclass.storage.k8s.io/local-sc created
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl apply -f 3sc-pvc.yaml 
+persistentvolumeclaim/sc created
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get sc
+NAME       PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+local-sc   k8s.io/minikube-hostpath   Retain          WaitForFirstConsumer   true                   36s
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pvc
+NAME   STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+sc     Pending                                      standard       <unset>                 25s
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ 
+```
+
+
+
+
+
+
 ---
 ## Шаблоны манифестов с учебными комментариями
 ### 1. Deployment (containers-data-exchange.yaml)
