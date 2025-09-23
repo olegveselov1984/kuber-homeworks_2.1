@@ -174,22 +174,29 @@ PV удален, но данные сохранены, поскольку уда
 
 <img width="990" height="216" alt="image" src="https://github.com/user-attachments/assets/dce3ec1a-871a-49a5-a520-fe0884958964" />
 
+
+<img width="1069" height="335" alt="image" src="https://github.com/user-attachments/assets/4c997645-0769-473a-ab17-3ba6135f5a06" />
+
 ```
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl apply -f 3sc.yaml 
-storageclass.storage.k8s.io/local-sc created
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl apply -f 3sc-pvc.yaml 
-persistentvolumeclaim/sc created
-ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get sc
-NAME       PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-local-sc   k8s.io/minikube-hostpath   Retain          WaitForFirstConsumer   true                   36s
 ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pvc
-NAME   STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-sc     Pending                                      standard       <unset>                 25s
+NAME          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+example-pvc   Pending                                      sc             <unset>                 20s
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pvc
+NAME          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+example-pvc   Pending                                      sc             <unset>                 41s
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl apply -f 3containers-data-exchange.yaml 
+deployment.apps/containers-data-exchange created
 ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ 
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ 
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pod
+NAME                                       READY   STATUS              RESTARTS   AGE
+containers-data-exchange-66f5854b4-clx69   0/2     ContainerCreating   0          7s
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ 
+ubuntu@ubuntu:~/src/kuber/2.1/kuber-homeworks_2.1$ kubectl get pod
+NAME                                       READY   STATUS    RESTARTS   AGE
+containers-data-exchange-66f5854b4-clx69   2/2     Running   0          56s
+
 ```
-
-
-
 
 
 
